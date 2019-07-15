@@ -25,7 +25,7 @@ public class ProjectApplicationTest {
 	public void exampleProjectTest() {
 		System.out.println("Project Test case scenarios");
 		emp.setSalary(3000);
-		empService.registerEmployee(emp);
+		//empService.registerEmployee(emp);
 	}
 
 }

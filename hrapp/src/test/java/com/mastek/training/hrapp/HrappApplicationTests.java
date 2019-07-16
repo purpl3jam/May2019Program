@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.mastek.training.hrapp.apis.DepartmentService;
 import com.mastek.training.hrapp.apis.EmployeeService;
+import com.mastek.training.hrapp.apis.ProjectService;
+import com.mastek.training.hrapp.entities.Department;
 import com.mastek.training.hrapp.entities.Employee;
+import com.mastek.training.hrapp.entities.Project;
 
 
 // Initialise the JUnit Test with Spring Boot Application Environment
@@ -41,15 +45,6 @@ public class HrappApplicationTests {
 		assertNotNull(emp);
 	}
 	
-//	@Test
-//	public void addNewEmployeeUsingService() {
-//		Employee emp = new Employee();
-//		emp.setEmpno(13534);
-//		emp.setName("Example");
-//		emp.setSalary(2000);
-//		empService.registerEmployee(emp);
-//	}
-	
 	@Test
 	public void findByEmpnoUsingService() {
 		int empno = 1;
@@ -69,12 +64,82 @@ public class HrappApplicationTests {
 		for (Employee employee : emps) {
 			System.out.println(employee);
 		}
-		assertEquals(emps.size(), 2);
+		assertEquals(emps.size(), 1);
 	}
+	
+	
+	@Autowired
+	DepartmentService depService;
+	
+	@Autowired
+	Department dep;
 
 	@Test
-	public void simpleTest() {
-		System.out.println("System Test Executed");
+	public void addDepartmentUsingService() {
+		Department dep = new Department();
+		dep.setName("New Department");
+		dep.setLocation("New Location");
+		dep = depService.registerOrUpdateDepartment(dep);
+		assertNotNull(dep);
 	}
-
+	
+	@Test
+	public void findByDeptnoUsingService() {
+		int deptno = 15;
+		assertNotNull(depService.findByDeptno(deptno));
+	}
+	
+	@Test
+	public void deleteByDeptnoUsingService() {
+		int deptno = 2;
+		depService.deleteByDeptno(deptno);
+		assertNull(depService.findByDeptno(deptno));
+	}
+	
+	@Test
+	public void checkFetchByLocation() {
+		List<Department> deps = depService.fetchDepartmentByLocation("New Location");
+		for (Department department : deps) {
+			System.out.println(department);
+		}
+		assertEquals(deps.size(), 2);
+	}
+	
+	
+	@Autowired
+	ProjectService projService;
+	
+	@Autowired
+	Project proj;
+	
+	@Test
+	public void addProjectUsingService() {
+		Project proj = new Project();
+		proj.setName("New Project");
+		proj.setCustomerName("New Customer");
+		proj = projService.registerOrUpdateProject(proj);
+		assertNotNull(proj);
+	}
+	
+	@Test
+	public void findByProjectIdUsingService() {
+		int projectId = 18;
+		assertNotNull(projService.findByProjectId(projectId));
+	}
+	
+	@Test
+	public void deleteByProjectIdUsingService() {
+		int projectId = 2;
+		projService.deleteByProjectId(projectId);
+		assertNull(projService.findByProjectId(projectId));
+	}
+	
+	@Test
+	public void checkFetchByCustomerName() {
+		List<Project> projs = projService.fetchProjectByCustomerName("New Customer");
+		for (Project project : projs) {
+			System.out.println(project);
+		}
+		assertEquals(projs.size(),2);
+	}
 }

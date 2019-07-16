@@ -51,21 +51,21 @@ public class HrappApplicationTests {
 		assertNotNull(empService.findByEmpno(empno));
 	}
 	
-	@Test
-	public void deleteByEmpnoUsingService() {
-		int empno = 6;
-		empService.deleteByEmpno(empno);
-		assertNull(empService.findByEmpno(empno));
-	}
-	
-	@Test
-	public void checkFetchBySalary() {
-		List<Employee> emps = empService.fetchEmployeesBySalaryRange(0, 1000);
-		for (Employee employee : emps) {
-			System.out.println(employee);
-		}
-		assertEquals(emps.size(), 1);
-	}
+//	@Test
+//	public void deleteByEmpnoUsingService() {
+//		int empno = 6;
+//		empService.deleteByEmpno(empno);
+//		assertNull(empService.findByEmpno(empno));
+//	}
+//	
+//	@Test
+//	public void checkFetchBySalary() {
+//		List<Employee> emps = empService.fetchEmployeesBySalaryRange(0, 1000);
+//		for (Employee employee : emps) {
+//			System.out.println(employee);
+//		}
+//		assertEquals(emps.size(), 1);
+//	}
 	
 	
 	@Autowired
@@ -89,21 +89,21 @@ public class HrappApplicationTests {
 		assertNotNull(depService.findByDeptno(deptno));
 	}
 	
-	@Test
-	public void deleteByDeptnoUsingService() {
-		int deptno = 2;
-		depService.deleteByDeptno(deptno);
-		assertNull(depService.findByDeptno(deptno));
-	}
-	
-	@Test
-	public void checkFetchByLocation() {
-		List<Department> deps = depService.fetchDepartmentByLocation("New Location");
-		for (Department department : deps) {
-			System.out.println(department);
-		}
-		assertEquals(deps.size(), 2);
-	}
+//	@Test
+//	public void deleteByDeptnoUsingService() {
+//		int deptno = 2;
+//		depService.deleteByDeptno(deptno);
+//		assertNull(depService.findByDeptno(deptno));
+//	}
+//	
+//	@Test
+//	public void checkFetchByLocation() {
+//		List<Department> deps = depService.fetchDepartmentByLocation("New Location");
+//		for (Department department : deps) {
+//			System.out.println(department);
+//		}
+//		assertEquals(deps.size(), 2);
+//	}
 	
 	
 	@Autowired
@@ -127,19 +127,57 @@ public class HrappApplicationTests {
 		assertNotNull(projService.findByProjectId(projectId));
 	}
 	
-	@Test
-	public void deleteByProjectIdUsingService() {
-		int projectId = 2;
-		projService.deleteByProjectId(projectId);
-		assertNull(projService.findByProjectId(projectId));
-	}
+//	@Test
+//	public void deleteByProjectIdUsingService() {
+//		int projectId = 2;
+//		projService.deleteByProjectId(projectId);
+//		assertNull(projService.findByProjectId(projectId));
+//	}
+//	
+//	@Test
+//	public void checkFetchByCustomerName() {
+//		List<Project> projs = projService.fetchProjectByCustomerName("New Customer");
+//		for (Project project : projs) {
+//			System.out.println(project);
+//		}
+//		assertEquals(projs.size(),2);
+//	}
 	
 	@Test
-	public void checkFetchByCustomerName() {
-		List<Project> projs = projService.fetchProjectByCustomerName("New Customer");
-		for (Project project : projs) {
-			System.out.println(project);
-		}
-		assertEquals(projs.size(),2);
+	public void manageAssociations() {
+		Department d1 = new Department();
+		d1.setName("Admin");
+		d1.setLocation("UK");
+		
+		Employee emp1 = new Employee();
+		emp1.setName("Admin Emp 1");
+		emp1.setSalary(2500);
+		
+		Employee emp2 = new Employee();
+		emp2.setName("Admin Emp 2");
+		emp2.setSalary(1500);
+		
+		Project p1 = new Project();
+		p1.setName("UK Project");
+		p1.setCustomerName("UK Customer");
+		
+		Project p2 = new Project();
+		p2.setName("US Project");
+		p2.setCustomerName("US Customer");
+		
+		// One to Many : one Department has many Employees
+		d1.getMembers().add(emp1);
+		d1.getMembers().add(emp2);
+		
+		// Many to One for each Employee to assign the Department
+		emp1.setCurrentDepartment(d1);
+		emp2.setCurrentDepartment(d1);
+		
+		// Many to Many
+		emp1.getAssignments().add(p1);
+		emp1.getAssignments().add(p2);
+		emp2.getAssignments().add(p1);
+		
+		depService.registerOrUpdateDepartment(d1);
 	}
 }

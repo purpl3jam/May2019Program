@@ -67,11 +67,11 @@ public class Project {
 		this.customerName = customerName;
 	}
 	
-	// mappedBy: check the configuration for Many to Many association in Employee class getAssignments() method
-	@ManyToMany(mappedBy="assignments")
+
 	private Set<Employee> team = new HashSet<>();
 	
-	
+	// mappedBy: check the configuration for Many to Many association in Employee class getAssignments() method
+	@ManyToMany(mappedBy="assignments")
 	public Set<Employee> getTeam() {
 		return team;
 	}

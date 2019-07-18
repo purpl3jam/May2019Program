@@ -83,7 +83,7 @@ public class Department {
 	//			ALL: [Persist, Merge, Delete, Refresh]
 	// mappedBy: 	identifies the property name in Child class where the JoinColumn configuration is present
 	// 				JoinColumn::ForeignKey
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="currentDepartment")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="currentDepartment")
 	public Set<Employee> getMembers() {
 		return members;
 	}

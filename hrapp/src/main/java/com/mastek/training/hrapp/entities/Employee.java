@@ -100,7 +100,7 @@ public class Employee implements Serializable {
 	// name: name of the Join Table
 	// joinColumns: Foreign Key column name for current class
 	// inverseJoinColumns: Foreign Key Column for other class
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="JPA_ASSIGNMENTS", joinColumns=@JoinColumn(name="FK_EMPNO"), inverseJoinColumns=@JoinColumn(name="FK_PROJECTID"))
 	public Set<Project> getAssignments() {
 		return assignments;

@@ -2,6 +2,12 @@ package com.mastek.training.hrapp.apis;
 
 import java.util.List;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,8 +19,10 @@ import com.mastek.training.hrapp.repositories.EmployeeRepository;
 // @Component: Indicate to Spring to create an object of this class as component
 // @Scope: 	Singleton: one object for application
 //			Prototype: one object for each usage
+// @Path: Map the URL pattern with the class as service
 @Component
-@Scope("prototype")
+@Scope("singleton")
+@Path("/employees/")
 public class EmployeeService {
 	
 	@Autowired
@@ -31,7 +39,16 @@ public class EmployeeService {
 		return emp;
 	}
 
-	public Employee findByEmpno(int empno) {
+	// @Path: Use find method using PathParam
+	// /find/1234 : 1234->empno to pass as param to this method
+	// @GET: HTTP method used to call the api
+	// @Produces: Declare all possible content types of return value
+	@Path("/find/{empno}")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON, // Object to be given in JSON 
+		MediaType.APPLICATION_XML // Object to be given in XML
+		})
+	public Employee findByEmpno(@PathParam("empno") int empno) {
 		// Fetches the employee details from DB by empno
 		try {
 			return employeeRepository.findById(empno).get();

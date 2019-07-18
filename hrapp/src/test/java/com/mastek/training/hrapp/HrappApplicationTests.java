@@ -35,15 +35,15 @@ public class HrappApplicationTests {
 	@Autowired
 	Employee emp;
 	
-	@Test
-	public void addEmployeeUsingService() {
-		Employee emp = new Employee();
-		emp.setEmpno(5);
-		emp.setName("New Employee 5");
-		emp.setSalary(999);
-		emp = empService.registerOrUpdateEmployee(emp);
-		assertNotNull(emp);
-	}
+//	@Test
+//	public void addEmployeeUsingService() {
+//		Employee emp = new Employee();
+//		emp.setEmpno(5);
+//		emp.setName("New Employee 5");
+//		emp.setSalary(999);
+//		emp = empService.registerOrUpdateEmployee(emp);
+//		assertNotNull(emp);
+//	}
 	
 	@Test
 	public void findByEmpnoUsingService() {
@@ -74,14 +74,14 @@ public class HrappApplicationTests {
 	@Autowired
 	Department dep;
 
-	@Test
-	public void addDepartmentUsingService() {
-		Department dep = new Department();
-		dep.setName("New Department");
-		dep.setLocation("New Location");
-		dep = depService.registerOrUpdateDepartment(dep);
-		assertNotNull(dep);
-	}
+//	@Test
+//	public void addDepartmentUsingService() {
+//		Department dep = new Department();
+//		dep.setName("New Department");
+//		dep.setLocation("New Location");
+//		dep = depService.registerOrUpdateDepartment(dep);
+//		assertNotNull(dep);
+//	}
 	
 	@Test
 	public void findByDeptnoUsingService() {
@@ -112,14 +112,14 @@ public class HrappApplicationTests {
 	@Autowired
 	Project proj;
 	
-	@Test
-	public void addProjectUsingService() {
-		Project proj = new Project();
-		proj.setName("New Project");
-		proj.setCustomerName("New Customer");
-		proj = projService.registerOrUpdateProject(proj);
-		assertNotNull(proj);
-	}
+//	@Test
+//	public void addProjectUsingService() {
+//		Project proj = new Project();
+//		proj.setName("New Project");
+//		proj.setCustomerName("New Customer");
+//		proj = projService.registerOrUpdateProject(proj);
+//		assertNotNull(proj);
+//	}
 	
 	@Test
 	public void findByProjectIdUsingService() {
@@ -179,5 +179,6 @@ public class HrappApplicationTests {
 		emp2.getAssignments().add(p1);
 		
 		depService.registerOrUpdateDepartment(d1);
+		
 	}
 }

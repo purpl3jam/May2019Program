@@ -2,7 +2,10 @@ package com.mastek.training.hrapp.apis;
 
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -22,7 +25,7 @@ import com.mastek.training.hrapp.repositories.EmployeeRepository;
 // @Path: Map the URL pattern with the class as service
 @Component
 @Scope("singleton")
-@Path("/employees/")
+@Path("/employees")
 public class EmployeeService {
 	
 	@Autowired
@@ -32,7 +35,14 @@ public class EmployeeService {
 		System.out.println("Employee Service Created");
 	}
 	
-	public Employee registerOrUpdateEmployee(Employee emp) {
+	
+	@Path("/register") // URL Pattern
+	@POST // HTTP Method to send the form Data
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) // Form data
+	@Produces(MediaType.APPLICATION_JSON) // JSON data
+	public Employee registerOrUpdateEmployee(
+			@BeanParam Employee emp) { // Input Bean using form
+		System.out.println(emp.getName());
 		emp = employeeRepository.save(emp);
 		System.out.println("Employee Registered " + emp);
 		
@@ -45,7 +55,8 @@ public class EmployeeService {
 	// @Produces: Declare all possible content types of return value
 	@Path("/find/{empno}")
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, // Object to be given in JSON 
+	@Produces({
+		MediaType.APPLICATION_JSON, // Object to be given in JSON 
 		MediaType.APPLICATION_XML // Object to be given in XML
 		})
 	public Employee findByEmpno(@PathParam("empno") int empno) {

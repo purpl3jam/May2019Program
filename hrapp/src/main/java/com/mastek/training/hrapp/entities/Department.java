@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -84,6 +85,7 @@ public class Department {
 	// mappedBy: 	identifies the property name in Child class where the JoinColumn configuration is present
 	// 				JoinColumn::ForeignKey
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="currentDepartment")
+	@XmlTransient
 	public Set<Employee> getMembers() {
 		return members;
 	}
@@ -91,7 +93,7 @@ public class Department {
 	public void setMembers(Set<Employee> members) {
 		this.members = members;
 	}
-
+	
 	
 	@Override
 	public String toString() {

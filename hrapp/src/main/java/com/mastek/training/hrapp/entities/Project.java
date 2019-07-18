@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -72,6 +73,7 @@ public class Project {
 	
 	// mappedBy: check the configuration for Many to Many association in Employee class getAssignments() method
 	@ManyToMany(mappedBy="assignments")
+	@XmlTransient
 	public Set<Employee> getTeam() {
 		return team;
 	}
